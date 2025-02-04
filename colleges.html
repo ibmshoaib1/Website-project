@@ -33,31 +33,8 @@
 
     <div class="container mt-4">
         <h1>Colleges</h1>
-        <div class="row">
-            <div class="col-md-4">
-                <h2>Engineering</h2>
-                <ul>
-                    <li>College A</li>
-                    <li>College B</li>
-                    <li>College C</li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <h2>Medical/Pharma</h2>
-                <ul>
-                    <li>College D</li>
-                    <li>College E</li>
-                    <li>College F</li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <h2>Management</h2>
-                <ul>
-                    <li>College G</li>
-                    <li>College H</li>
-                    <li>College I</li>
-                </ul>
-            </div>
+        <div class="row" id="collegeList">
+            <!-- Dynamic content will be loaded here -->
         </div>
     </div>
 
@@ -67,9 +44,31 @@
         </div>
     </footer>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="scripts.js"></script>
+    <script>
+        // Fetch college data from an API
+        $(document).ready(function(){
+            const apiUrl = 'https://api.example.com/colleges'; // Replace with actual API endpoint
+            $.get(apiUrl, function(data){
+                const collegeList = $('#collegeList');
+                data.forEach(college => {
+                    collegeList.append(`
+                        <div class="col-md-4 mb-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">${college.name}</h5>
+                                    <p class="card-text">${college.location}</p>
+                                    <a href="${college.website}" class="btn btn-primary" target="_blank">Visit Website</a>
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                });
+            });
+        });
+    </script>
 </body>
 </html>
